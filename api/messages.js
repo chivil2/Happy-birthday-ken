@@ -4,7 +4,9 @@
 
 const MAX_NAME = 40;
 const MAX_MESSAGE = 280;
-const KEEP_LATEST = 500;
+const MAX_PHOTO_LEN = 950000; // base64 chars (~700KB)
+const KEEP_LATEST = 300;
+const ALLOWED_PHOTO = /^data:image\/(jpeg|png|webp);base64,/;
 
 module.exports = async function handler(req, res) {
   const url = process.env.KV_REST_API_URL;
@@ -51,12 +53,20 @@ module.exports = async function handler(req, res) {
       }
       const name = String((body || {}).name || "").trim().slice(0, MAX_NAME);
       const message = String((body || {}).message || "").trim().slice(0, MAX_MESSAGE);
+      let photo = null;
+      if (
+        typeof (body || {}).photo === "string" &&
+        body.photo.length <= MAX_PHOTO_LEN &&
+        ALLOWED_PHOTO.test(body.photo)
+      ) {
+        photo = body.photo;
+      }
 
       if (!name || !message) {
         return res.status(400).json({ error: "Name and message are required." });
       }
 
-      const entry = JSON.stringify({ name, message, ts: Date.now() });
+      const entry = JSON.stringify({ name, message, photo, ts: Date.now() });
       await kv(["RPUSH", "messages", entry]);
       await kv(["LTRIM", "messages", String(-KEEP_LATEST), "-1"]);
       return res.status(201).json({ ok: true });

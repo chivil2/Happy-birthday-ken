@@ -3,68 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday Ken!</title>
-  <meta name="description" content="A birthday surprise for Ken" />
+  <title>Happy 20th Birthday Ken!</title>
+  <meta name="description" content="An imperial birthday decree for Ken — the youngest of the group" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Caveat:wght@500;700&family=Karla:wght@300;400;700&family=Special+Elite&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- ============ OPENING OVERLAY ============ -->
-  <div id="intro" class="intro">
-    <div class="intro-stars" id="introStars"></div>
+  <!-- hanging lanterns -->
+  <div class="lantern left" aria-hidden="true">
+    <div class="string"></div><div class="cap"></div><div class="body"></div><div class="tassel"></div>
+  </div>
+  <div class="lantern right" aria-hidden="true">
+    <div class="string"></div><div class="cap"></div><div class="body"></div><div class="tassel"></div>
+  </div>
 
-    <div class="gift-stage" id="giftStage">
-      <p class="intro-hint">A surprise awaits you...</p>
-      <button class="gift" id="gift" aria-label="Open your gift">
-        <span class="gift-lid"></span>
-        <span class="gift-box"></span>
-        <span class="gift-ribbon-v"></span>
-        <span class="gift-ribbon-h"></span>
-        <span class="gift-bow">
-          <span class="bow-loop left"></span>
-          <span class="bow-loop right"></span>
-          <span class="bow-knot"></span>
-        </span>
-        <span class="gift-glow"></span>
+  <!-- ============ INTRO: imperial scroll ============ -->
+  <div id="intro" class="intro">
+    <div class="intro-card" id="introCard">
+      <p class="intro-top">an imperial decree for</p>
+      <p class="intro-to">KEN</p>
+      <button class="scroll" id="scroll" aria-label="Unroll the birthday scroll">
+        <span class="scroll-paper"><span class="scroll-text">happy 20th birthday!</span></span>
+        <span class="scroll-roller roller-l"></span>
+        <span class="scroll-roller roller-r"></span>
+        <span class="scroll-seal">&#x795D;</span>
       </button>
-      <p class="tap-label">Tap the gift to open</p>
+      <p class="intro-hint">tap to unroll the scroll</p>
     </div>
 
     <div class="reveal hidden" id="reveal">
-      <div class="hb-line" id="hbLine"></div>
-      <h1 class="name" id="nameText">Ken</h1>
-      <div class="age-line" id="ageLine">Wishing you the best day ever</div>
-      <button class="enter-btn" id="enterBtn">Enter the celebration</button>
+      <p class="reveal-kicker" id="revealKicker">by decree of your favourite people</p>
+      <h1 class="reveal-title">
+        <span class="rt1">Happy</span>
+        <span class="rt2">20th</span>
+        <span class="rt3">Birthday</span>
+      </h1>
+      <p class="reveal-name">KEN!</p>
+      <p class="reveal-sub" id="revealSub">to the youngest of our group</p>
+      <button class="enter-btn" id="enterBtn">enter the celebration</button>
     </div>
   </div>
 
   <!-- ============ MAIN PAGE ============ -->
   <main id="main" class="main hidden">
-    <div class="balloon-field" id="balloonField"></div>
+    <div class="petal-field" id="petalField"></div>
 
     <button class="music-toggle" id="musicToggle" aria-label="Toggle music" title="Play birthday tune">
       <span id="musicIcon">&#9835;</span>
     </button>
 
+    <!-- ticker strip -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Happy 20th Birthday &#10047; Youngest of the Group &#10047; Poison-Free &amp; Approved &#10047; The Court's Favourite &#10047; Zero Toxins Detected &#10047;&nbsp;</span>
+        <span>Happy 20th Birthday &#10047; Youngest of the Group &#10047; Poison-Free &amp; Approved &#10047; The Court's Favourite &#10047; Zero Toxins Detected &#10047;&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- hero -->
     <header class="hero">
-      <h2 class="hero-title">
-        <span class="word w1">Happy</span>
-        <span class="word w2">Birthday</span>
-        <span class="word w3">Ken!</span>
-      </h2>
-      <p class="hero-sub">Today is all about you</p>
-      <div class="scroll-hint"><span></span></div>
+      <div class="hero-scrap">
+        <p class="hero-kicker">an imperial celebration</p>
+        <h2 class="hero-title">
+          <span class="w1">Happy</span>
+          <span class="w2">Birthday</span>
+        </h2>
+        <p class="hero-name">Ken<span class="hero-bang">!</span></p>
+        <p class="hero-script">the youngest of our group turns twenty</p>
+
+        <div class="hero-doodle d1">
+          <svg viewBox="0 0 60 60" width="54" height="54"><g fill="#f2b8c6" stroke="#8e2a38" stroke-width="2"><ellipse cx="30" cy="14" rx="8" ry="11"/><ellipse cx="45" cy="26" rx="8" ry="11" transform="rotate(72 45 26)"/><ellipse cx="39" cy="45" rx="8" ry="11" transform="rotate(144 39 45)"/><ellipse cx="21" cy="45" rx="8" ry="11" transform="rotate(216 21 45)"/><ellipse cx="15" cy="26" rx="8" ry="11" transform="rotate(288 15 26)"/><circle cx="30" cy="30" r="6" fill="#f6d47e"/></g></svg>
+        </div>
+        <div class="hero-doodle d2">
+          <svg viewBox="0 0 90 34" width="80" height="30"><path d="M4 22 Q 15 6, 28 18 T 50 18 Q 60 8, 72 16 Q 82 24, 88 14" fill="none" stroke="#8e2a38" stroke-width="3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="hero-doodle d3">
+          <svg viewBox="0 0 46 46" width="38" height="38"><path d="M23 3 v10 M23 33 v10 M3 23 h10 M33 23 h10" stroke="#d4af5f" stroke-width="3" stroke-linecap="round"/><circle cx="23" cy="23" r="7" fill="none" stroke="#d4af5f" stroke-width="3"/></svg>
+        </div>
+      </div>
+
+      <figure class="hero-portrait portrait tilt-r">
+        <span class="tape"></span>
+        <img src="images/photo1.jpg" alt="Ken" />
+        <figcaption>the birthday boy</figcaption>
+      </figure>
+
+      <div class="scroll-hint"><span>scroll down</span></div>
     </header>
 
+    <!-- letter -->
+    <section class="letter-section">
+      <div class="paper-card">
+        <span class="tape tape-l"></span>
+        <span class="tape tape-r"></span>
+        <p class="letter-dear">Dear Ken,</p>
+        <p class="letter-body">
+          Twenty years of you, and the court still wouldn't be the same
+          without you. You arrived as the youngest of the group and somehow
+          became the one we all orbit. Thank you for every late-night laugh,
+          every spontaneous plan, and every ordinary day you turned into a
+          core memory.
+        </p>
+        <p class="letter-body">
+          We checked this letter three times — not a trace of poison, only
+          love. Happy 20th birthday to the youngest of our group.
+        </p>
+        <p class="letter-sign">— your favourite people</p>
+        <div class="letter-seal"><span class="seal">&#x795D;</span></div>
+      </div>
+    </section>
+
+    <!-- apothecary files -->
+    <section class="files-section">
+      <h3 class="section-title">The Apothecary Files</h3>
+      <p class="section-script">official records, verified by taste-test</p>
+      <div class="files-grid">
+        <div class="file-card fc1"><p class="file-num">20</p><p class="file-label">years young</p></div>
+        <div class="file-card fc2"><p class="file-num">0%</p><p class="file-label">poison detected</p></div>
+        <div class="file-card fc3"><p class="file-num">100%</p><p class="file-label">real one</p></div>
+        <div class="file-card fc4"><p class="file-num">10/10</p><p class="file-label">taste test passed</p></div>
+        <div class="file-card fc5"><p class="file-num">#1</p><p class="file-label">youngest of the group</p></div>
+      </div>
+    </section>
+
+    <!-- gallery -->
+    <section class="gallery-section">
+      <h3 class="section-title">Portraits of the Birthday Boy</h3>
+      <p class="section-script">exhibits a, b &amp; c — clearly the cutest in the court</p>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- cake -->
     <section class="cake-section">
-      <h3 class="section-title">Make a wish</h3>
-      <p class="section-sub">Click the flames to blow out the candles</p>
+      <h3 class="section-title">Make a Wish</h3>
+      <p class="section-script">taste-tested thrice — completely poison-free</p>
       <div class="cake" id="cake">
         <div class="candles" id="candles"></div>
         <div class="cake-layer top"></div>
@@ -72,60 +150,20 @@
         <div class="cake-layer bottom"></div>
         <div class="cake-plate"></div>
       </div>
-      <p class="wish-msg hidden" id="wishMsg">Your wish has been sent to the stars</p>
+      <p class="wish-msg hidden" id="wishMsg">wish sealed &amp; sent to the heavens</p>
     </section>
 
-    <section class="gallery-section">
-      <h3 class="section-title">Memories</h3>
-      <p class="section-sub">Moments worth celebrating</p>
-      <div class="gallery" id="gallery"></div>
-    </section>
-
-    <section class="message-section">
-      <div class="message-card">
-        <h3 class="section-title">A note for you</h3>
-        <p class="message-text">
-          Another year older, another year bolder. May this year bring you
-          everything you've been working toward and a few wonderful surprises
-          along the way. Eat too much cake, laugh too loud, and enjoy every
-          second of your day.
-        </p>
-        <p class="message-sign">— with love</p>
-      </div>
-    </section>
-
-    <section class="guestbook-section">
-      <h3 class="section-title">Messages for Ken</h3>
-      <p class="section-sub">Leave him a birthday wish</p>
-
-      <form class="wish-form" id="wishForm">
-        <input
-          type="text"
-          id="wishName"
-          maxlength="40"
-          placeholder="Your name"
-          required
-          autocomplete="name"
-        />
-        <textarea
-          id="wishMessage"
-          maxlength="280"
-          rows="3"
-          placeholder="Write a birthday message..."
-          required
-        ></textarea>
-        <div class="wish-form-row">
-          <span class="char-count" id="charCount">0 / 280</span>
-          <button type="submit" class="wish-submit" id="wishSubmit">Send wish</button>
-        </div>
-        <p class="wish-status hidden" id="wishStatus"></p>
-      </form>
-
+    <!-- wishes -->
+    <section class="wishes-section">
+      <h3 class="section-title">Tributes for the Youngest</h3>
+      <p class="section-script">left by the people who adore you</p>
       <div class="wishes" id="wishes"></div>
     </section>
 
     <footer class="footer">
-      <p>Made with <span class="heart">&hearts;</span> for Ken</p>
+      <p class="footer-big">Long Live the Youngest</p>
+      <p class="footer-note">made with <span class="heart">&hearts;</span> by the ones who love you most</p>
+      <a class="footer-link" href="/wish">court members — leave a tribute for ken</a>
     </footer>
   </main>
 

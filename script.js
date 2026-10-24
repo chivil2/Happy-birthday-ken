@@ -1,102 +1,66 @@
 /* ============================================================
-   Happy Birthday Ken — interactive celebration
+   Happy 20th Birthday Ken — an Apothecary Diaries celebration
    ============================================================ */
 
-// ---- Photos: add more by dropping files in /images and listing them here ----
+// ---- Gallery photos: add more by dropping files in /images and listing them ----
 const PHOTOS = [
-  { src: "images/photo1.jpg", caption: "Golden hour, golden person" },
-  { src: "images/photo2.jpg", caption: "Cooling down like a star" },
-  { src: "images/photo3.jpg", caption: "Adventure mode: on" },
+  { src: "images/photo1.jpg", caption: "golden hour in the gardens" },
+  { src: "images/photo2.jpg", caption: "cooler than the emperor" },
+  { src: "images/photo3.jpg", caption: "exploring the outer court" },
 ];
 
-const NAME = "Ken";
-const CONFETTI_COLORS = ["#ffd166", "#ef476f", "#9b5de5", "#06d6a0", "#118ab2", "#fff8f0"];
+const CONFETTI_COLORS = ["#f2b8c6", "#d4af5f", "#b23a48", "#4f9e8a", "#f7efdc", "#8e2a38"];
+const LOCAL_KEY = "ken-bday-wishes";
 
 const hasConfetti = typeof window.confetti === "function";
 const fire = (opts) => {
   if (hasConfetti) window.confetti(Object.assign({ colors: CONFETTI_COLORS }, opts));
 };
 
-/* ================= INTRO: stars ================= */
-(function buildStars() {
-  const field = document.getElementById("introStars");
-  for (let i = 0; i < 90; i++) {
-    const s = document.createElement("span");
-    s.className = "star";
-    const size = Math.random() * 2.5 + 1;
-    s.style.width = s.style.height = size + "px";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.top = Math.random() * 100 + "%";
-    s.style.setProperty("--tw-dur", Math.random() * 3 + 2 + "s");
-    s.style.animationDelay = Math.random() * 3 + "s";
-    field.appendChild(s);
-  }
-})();
-
-/* ================= INTRO: gift opening ================= */
-const gift = document.getElementById("gift");
-const giftStage = document.getElementById("giftStage");
+/* ================= INTRO: imperial scroll ================= */
+const scroll = document.getElementById("scroll");
+const introCard = document.getElementById("introCard");
 const reveal = document.getElementById("reveal");
 let opened = false;
 
-gift.addEventListener("click", () => {
+scroll.addEventListener("click", () => {
   if (opened) return;
   opened = true;
 
-  // burst from the gift itself
-  const rect = gift.getBoundingClientRect();
+  scroll.classList.add("open");
+
+  const rect = scroll.getBoundingClientRect();
   const origin = {
     x: (rect.left + rect.width / 2) / window.innerWidth,
     y: (rect.top + rect.height / 2) / window.innerHeight,
   };
-  fire({ particleCount: 160, spread: 100, startVelocity: 45, origin });
 
-  giftStage.classList.add("opened");
-
+  // scroll unrolls, confetti bursts, card flies away, reveal begins
+  setTimeout(() => fire({ particleCount: 140, spread: 100, startVelocity: 42, origin }), 500);
   setTimeout(() => {
+    introCard.classList.add("opened");
     reveal.classList.remove("hidden");
-    revealName();
-    fireworksShow(6000);
-  }, 500);
+    fireworksShow(5500);
+    timedVolleys();
+  }, 1100);
 });
 
-function revealName() {
-  // staggered "HAPPY BIRTHDAY" letters
-  const line = document.getElementById("hbLine");
-  "HAPPY BIRTHDAY".split("").forEach((ch, i) => {
-    const span = document.createElement("span");
-    if (ch === " ") {
-      span.className = "space";
-    } else {
-      span.className = "letter";
-      span.textContent = ch;
-      span.style.animationDelay = 0.05 * i + "s";
-    }
-    line.appendChild(span);
-  });
-
-  const nameEl = document.getElementById("nameText");
-  nameEl.textContent = NAME;
-  nameEl.style.animationDelay = "0.9s";
-  document.getElementById("ageLine").style.animationDelay = "1.7s";
-  document.getElementById("enterBtn").style.animationDelay = "2.2s";
-
-  // celebratory volleys timed with the reveal
+function timedVolleys() {
   setTimeout(() => {
     fire({ particleCount: 80, angle: 60, spread: 60, origin: { x: 0, y: 0.7 } });
     fire({ particleCount: 80, angle: 120, spread: 60, origin: { x: 1, y: 0.7 } });
-  }, 900);
+  }, 1100);
   setTimeout(() => {
     fire({ particleCount: 120, spread: 160, startVelocity: 40, origin: { y: 0.5 }, shapes: ["star"] });
-  }, 1500);
+  }, 1800);
 }
 
 function fireworksShow(duration) {
   const end = Date.now() + duration;
   (function launch() {
     fire({
-      particleCount: 40 + Math.random() * 40,
-      startVelocity: 30 + Math.random() * 20,
+      particleCount: 35 + Math.random() * 40,
+      startVelocity: 28 + Math.random() * 20,
       spread: 360,
       ticks: 90,
       gravity: 0.9,
@@ -111,33 +75,33 @@ function fireworksShow(duration) {
 document.getElementById("enterBtn").addEventListener("click", () => {
   document.getElementById("intro").classList.add("fade-out");
   document.getElementById("main").classList.remove("hidden");
-  startBalloons();
+  startPetals();
   fire({ particleCount: 100, spread: 120, origin: { y: 0.4 } });
 });
 
-/* ================= BALLOONS ================= */
-function startBalloons() {
-  const field = document.getElementById("balloonField");
-  const colors = ["#ef476f", "#ffd166", "#9b5de5", "#06d6a0", "#118ab2", "#f78c6b"];
-  for (let i = 0; i < 14; i++) {
-    const b = document.createElement("div");
-    b.className = "balloon";
-    const c = colors[i % colors.length];
-    b.style.background = `radial-gradient(circle at 35% 30%, ${c}dd, ${c})`;
-    b.style.left = Math.random() * 95 + "%";
-    b.style.setProperty("--dur", 11 + Math.random() * 10 + "s");
-    b.style.setProperty("--delay", Math.random() * 12 + "s");
-    const scale = 0.6 + Math.random() * 0.7;
-    b.style.width = 52 * scale + "px";
-    b.style.height = 66 * scale + "px";
-    field.appendChild(b);
+/* ================= FALLING BLOSSOM PETALS ================= */
+function startPetals() {
+  const field = document.getElementById("petalField");
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement("div");
+    p.className = "petal";
+    const size = 8 + Math.random() * 12;
+    p.style.width = size + "px";
+    p.style.height = size * 0.7 + "px";
+    p.style.left = Math.random() * 100 + "%";
+    p.style.setProperty("--dur", 9 + Math.random() * 9 + "s");
+    p.style.setProperty("--delay", Math.random() * 14 + "s");
+    if (Math.random() < 0.25) {
+      p.style.background = "radial-gradient(circle at 30% 30%, #ecd9a8, #d4af5f)";
+    }
+    field.appendChild(p);
   }
 }
 
 /* ================= CAKE & CANDLES ================= */
 (function buildCake() {
   const holder = document.getElementById("candles");
-  const candleColors = ["#ef476f", "#06d6a0", "#118ab2", "#ffd166", "#9b5de5"];
+  const candleColors = ["#b23a48", "#d4af5f", "#4f9e8a", "#f2b8c6", "#8e2a38"];
   const positions = [8, 28, 50, 72, 92]; // % across
   let lit = positions.length;
 
@@ -145,7 +109,7 @@ function startBalloons() {
     const c = document.createElement("div");
     c.className = "candle";
     c.style.left = `calc(${pos}% - 5px)`;
-    c.style.background = `repeating-linear-gradient(45deg, ${candleColors[i]}, ${candleColors[i]} 5px, #fff 5px, #fff 9px)`;
+    c.style.background = `repeating-linear-gradient(45deg, ${candleColors[i]}, ${candleColors[i]} 5px, #f7efdc 5px, #f7efdc 9px)`;
 
     const f = document.createElement("div");
     f.className = "flame";
@@ -179,55 +143,50 @@ function startBalloons() {
   }
 })();
 
-/* ================= GALLERY ================= */
+/* ================= GALLERY (framed portraits) ================= */
 (function buildGallery() {
   const gallery = document.getElementById("gallery");
+  const tilts = ["tilt-l", "tilt-c", "tilt-r"];
 
-  PHOTOS.forEach((photo) => {
+  PHOTOS.forEach((photo, i) => {
     const card = document.createElement("figure");
-    card.className = "photo-card";
+    card.className = "portrait " + tilts[i % tilts.length];
+
+    const tape = document.createElement("span");
+    tape.className = "tape";
 
     const img = document.createElement("img");
     img.src = photo.src;
     img.alt = photo.caption || "Birthday memory";
     img.loading = "lazy";
-    img.onerror = () => {
-      card.style.display = "none"; // skip missing files silently
-    };
+    img.onerror = () => { card.style.display = "none"; };
 
-    const frame = document.createElement("span");
-    frame.className = "frame";
+    const cap = document.createElement("figcaption");
+    cap.textContent = photo.caption || "";
 
+    card.appendChild(tape);
     card.appendChild(img);
-    card.appendChild(frame);
-
-    if (photo.caption) {
-      const cap = document.createElement("figcaption");
-      cap.className = "caption";
-      cap.textContent = photo.caption;
-      card.appendChild(cap);
-    }
+    card.appendChild(cap);
     gallery.appendChild(card);
   });
 
-  // reveal on scroll
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add("visible"), i * 120);
+          setTimeout(() => e.target.classList.add("visible"), i * 140);
           observer.unobserve(e.target);
         }
       });
     },
     { threshold: 0.2 }
   );
-  gallery.querySelectorAll(".photo-card").forEach((c) => observer.observe(c));
+  gallery.querySelectorAll(".portrait").forEach((c) => observer.observe(c));
 })();
 
 /* ================= CONFETTI ON TAP ================= */
 document.getElementById("main").addEventListener("pointerdown", (e) => {
-  if (e.target.closest("button") || e.target.closest(".flame") || e.target.closest(".candle")) return;
+  if (e.target.closest("button") || e.target.closest(".flame") || e.target.closest(".candle") || e.target.closest("a")) return;
   fire({
     particleCount: 25,
     spread: 70,
@@ -237,21 +196,95 @@ document.getElementById("main").addEventListener("pointerdown", (e) => {
   });
 });
 
+/* ================= WISHES WALL (read-only for Ken) ================= */
+(function wishesWall() {
+  const wishesEl = document.getElementById("wishes");
+
+  function localWishes() {
+    try { return JSON.parse(localStorage.getItem(LOCAL_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function renderWish(entry, isLocal) {
+    const card = document.createElement("div");
+    card.className = "wish-card";
+
+    const tape = document.createElement("span");
+    tape.className = "tape";
+    card.appendChild(tape);
+
+    if (entry.photo && /^data:image\//.test(entry.photo)) {
+      const img = document.createElement("img");
+      img.className = "wish-photo";
+      img.src = entry.photo;
+      img.alt = "photo from " + entry.name;
+      img.loading = "lazy";
+      card.appendChild(img);
+    }
+
+    const text = document.createElement("p");
+    text.className = "wish-text";
+    text.textContent = entry.message; // textContent = XSS-safe
+
+    const name = document.createElement("p");
+    name.className = "wish-name";
+    name.textContent = "— " + entry.name;
+    if (isLocal) {
+      const tag = document.createElement("span");
+      tag.className = "local-tag";
+      tag.textContent = "  (this device)";
+      name.appendChild(tag);
+    }
+
+    const seal = document.createElement("span");
+    seal.className = "seal wish-seal";
+    seal.textContent = String.fromCharCode(0x795D);
+
+    card.appendChild(text);
+    card.appendChild(name);
+    card.appendChild(seal);
+    return card;
+  }
+
+  function showEmpty() {
+    const p = document.createElement("p");
+    p.className = "wishes-empty";
+    p.textContent = "tributes are on their way...";
+    wishesEl.appendChild(p);
+  }
+
+  async function loadWishes() {
+    wishesEl.innerHTML = "";
+    const local = localWishes().map((m) => ({ ...m, local: true }));
+    try {
+      const r = await fetch("/api/messages");
+      if (!r.ok) throw new Error();
+      const data = await r.json();
+      const all = [...local, ...(data.messages || [])];
+      if (!all.length) return showEmpty();
+      all.forEach((m) => wishesEl.appendChild(renderWish(m, m.local)));
+    } catch {
+      if (!local.length) return showEmpty();
+      local.forEach((m) => wishesEl.appendChild(renderWish(m, true)));
+    }
+  }
+
+  loadWishes();
+})();
+
 /* ================= MUSIC: Happy Birthday via Web Audio ================= */
 const music = (() => {
   const NOTES = {
-    G3: 196.0, A3: 220.0, B3: 246.94,
     C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.0,
     A4: 440.0, Bb4: 466.16, C5: 523.25,
   };
-  // [note, beats]
   const MELODY = [
     ["C4", 0.75], ["C4", 0.25], ["D4", 1], ["C4", 1], ["F4", 1], ["E4", 2],
     ["C4", 0.75], ["C4", 0.25], ["D4", 1], ["C4", 1], ["G4", 1], ["F4", 2],
     ["C4", 0.75], ["C4", 0.25], ["C5", 1], ["A4", 1], ["F4", 1], ["E4", 1], ["D4", 2],
     ["Bb4", 0.75], ["Bb4", 0.25], ["A4", 1], ["F4", 1], ["G4", 1], ["F4", 2],
   ];
-  const BEAT = 0.42; // seconds per beat
+  const BEAT = 0.42;
 
   let ctx = null;
   let playing = false;
@@ -284,7 +317,7 @@ const music = (() => {
     });
 
     stopTimer = setTimeout(() => {
-      if (playing) play(); // loop the tune
+      if (playing) play();
     }, total * 1000 + 600);
   }
 
@@ -309,118 +342,3 @@ document.getElementById("musicToggle").addEventListener("click", function () {
   this.classList.toggle("playing", on);
   document.getElementById("musicIcon").innerHTML = on ? "&#9836;" : "&#9835;";
 });
-
-/* ================= GUESTBOOK ================= */
-(function guestbook() {
-  const form = document.getElementById("wishForm");
-  const nameInput = document.getElementById("wishName");
-  const msgInput = document.getElementById("wishMessage");
-  const charCount = document.getElementById("charCount");
-  const submitBtn = document.getElementById("wishSubmit");
-  const status = document.getElementById("wishStatus");
-  const wishesEl = document.getElementById("wishes");
-  const LOCAL_KEY = "ken-bday-wishes";
-  let apiAvailable = true;
-
-  msgInput.addEventListener("input", () => {
-    charCount.textContent = msgInput.value.length + " / 280";
-  });
-
-  function localWishes() {
-    try { return JSON.parse(localStorage.getItem(LOCAL_KEY)) || []; }
-    catch { return []; }
-  }
-
-  function saveLocal(entry) {
-    const list = localWishes();
-    list.unshift(entry);
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(list.slice(0, 100)));
-  }
-
-  function renderWish(entry, isLocal) {
-    const card = document.createElement("div");
-    card.className = "wish-card";
-
-    const text = document.createElement("p");
-    text.className = "wish-text";
-    text.textContent = entry.message; // textContent = XSS-safe
-
-    const name = document.createElement("p");
-    name.className = "wish-name";
-    name.textContent = "— " + entry.name;
-    if (isLocal) {
-      const tag = document.createElement("span");
-      tag.className = "local-tag";
-      tag.textContent = "  (saved on this device)";
-      name.appendChild(tag);
-    }
-
-    card.appendChild(text);
-    card.appendChild(name);
-    return card;
-  }
-
-  async function loadWishes() {
-    wishesEl.innerHTML = "";
-    try {
-      const r = await fetch("/api/messages");
-      if (!r.ok) throw new Error();
-      const data = await r.json();
-      const server = data.messages || [];
-      const local = localWishes().map((m) => ({ ...m, local: true }));
-      const all = [...local, ...server];
-      if (!all.length) return showEmpty();
-      all.forEach((m) => wishesEl.appendChild(renderWish(m, m.local)));
-    } catch {
-      apiAvailable = false;
-      const local = localWishes();
-      if (!local.length) return showEmpty();
-      local.forEach((m) => wishesEl.appendChild(renderWish(m, true)));
-    }
-  }
-
-  function showEmpty() {
-    const p = document.createElement("p");
-    p.className = "wishes-empty";
-    p.textContent = "No wishes yet — be the first!";
-    wishesEl.appendChild(p);
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = nameInput.value.trim();
-    const message = msgInput.value.trim();
-    if (!name || !message) return;
-
-    submitBtn.disabled = true;
-    status.classList.remove("hidden", "error");
-
-    const entry = { name, message, ts: Date.now() };
-    try {
-      const r = await fetch("/api/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(entry),
-      });
-      if (!r.ok) throw new Error();
-      status.textContent = "Your wish was sent!";
-      fire({ particleCount: 60, spread: 80, origin: { y: 0.8 }, scalar: 0.9 });
-      const empty = wishesEl.querySelector(".wishes-empty");
-      if (empty) empty.remove();
-      wishesEl.prepend(renderWish(entry, false));
-      setTimeout(loadWishes, 2000); // sync once the write propagates
-    } catch {
-      // API not connected — keep it on this device instead
-      saveLocal(entry);
-      status.textContent = "Saved! (syncs to everyone once the guestbook is connected)";
-      loadWishes();
-    }
-
-    msgInput.value = "";
-    charCount.textContent = "0 / 280";
-    submitBtn.disabled = false;
-    setTimeout(() => status.classList.add("hidden"), 5000);
-  });
-
-  loadWishes();
-})();
