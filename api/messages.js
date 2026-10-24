@@ -10,9 +10,13 @@ const ALLOWED_PHOTO = /^data:image\/(jpeg|png|webp);base64,/;
 
 module.exports = async function handler(req, res) {
   const url =
-    process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+    process.env.KV_REST_API_URL ||
+    process.env.UPSTASH_REDIS_REST_URL ||
+    process.env.STORAGE_URL;
   const token =
-    process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+    process.env.KV_REST_API_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_TOKEN ||
+    process.env.STORAGE_TOKEN;
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
