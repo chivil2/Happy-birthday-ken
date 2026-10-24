@@ -1215,6 +1215,8 @@ section {
   color: var(--ink);
   word-wrap: break-word;
   padding: 0 4px;
+  max-height: 260px;
+  overflow-y: auto;
 }
 
 .wish-card .wish-name {
@@ -1453,6 +1455,11 @@ section {
   font-family: var(--font-body);
   font-size: 0.72rem;
   color: rgba(51, 48, 31, 0.5);
+}
+
+.char-count.over {
+  color: var(--red);
+  font-weight: 700;
 }
 
 .wish-submit {

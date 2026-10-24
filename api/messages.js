@@ -3,7 +3,8 @@
 // automatically — no code changes needed. Both naming schemes supported.
 
 const MAX_NAME = 40;
-const MAX_MESSAGE = 280;
+const MAX_WORDS = 400;
+const MAX_MESSAGE_CHARS = 4000; // backstop
 const MAX_PHOTO_LEN = 950000; // base64 chars (~700KB)
 const KEEP_LATEST = 300;
 const ALLOWED_PHOTO = /^data:image\/(jpeg|png|webp);base64,/;
@@ -58,7 +59,11 @@ module.exports = async function handler(req, res) {
         try { body = JSON.parse(body); } catch { body = {}; }
       }
       const name = String((body || {}).name || "").trim().slice(0, MAX_NAME);
-      const message = String((body || {}).message || "").trim().slice(0, MAX_MESSAGE);
+      const message = String((body || {}).message || "").trim().slice(0, MAX_MESSAGE_CHARS);
+      const words = message.split(/\s+/).filter(Boolean).length;
+      if (words > MAX_WORDS) {
+        return res.status(400).json({ error: "Message is over 400 words." });
+      }
       let photo = null;
       if (
         typeof (body || {}).photo === "string" &&

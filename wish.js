@@ -23,11 +23,18 @@ const photoPreview = document.getElementById("photoPreview");
 const previewImg = document.getElementById("previewImg");
 const photoRemove = document.getElementById("photoRemove");
 const LOCAL_KEY = "ken-bday-wishes";
+const WORD_LIMIT = 400;
 
 let photoDataUrl = null;
 
+function wordCount(s) {
+  return s.trim().split(/\s+/).filter(Boolean).length;
+}
+
 msgInput.addEventListener("input", () => {
-  charCount.textContent = msgInput.value.length + " / 280";
+  const n = wordCount(msgInput.value);
+  charCount.textContent = n + " / 400 words";
+  charCount.classList.toggle("over", n > WORD_LIMIT);
 });
 
 /* ---- photo: read + downscale so it fits in the DB ---- */
@@ -79,6 +86,11 @@ form.addEventListener("submit", async (e) => {
   const name = nameInput.value.trim();
   const message = msgInput.value.trim();
   if (!name || !message) return;
+  if (wordCount(message) > WORD_LIMIT) {
+    status.classList.add("error");
+    status.textContent = "keep it under 400 words";
+    return;
+  }
 
   submitBtn.disabled = true;
   status.classList.remove("error");
@@ -105,7 +117,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   msgInput.value = "";
-  charCount.textContent = "0 / 280";
+  charCount.textContent = "0 / 400 words";
   photoRemove.click();
   submitBtn.disabled = false;
 });
