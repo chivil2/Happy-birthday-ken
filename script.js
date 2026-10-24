@@ -309,3 +309,118 @@ document.getElementById("musicToggle").addEventListener("click", function () {
   this.classList.toggle("playing", on);
   document.getElementById("musicIcon").innerHTML = on ? "&#9836;" : "&#9835;";
 });
+
+/* ================= GUESTBOOK ================= */
+(function guestbook() {
+  const form = document.getElementById("wishForm");
+  const nameInput = document.getElementById("wishName");
+  const msgInput = document.getElementById("wishMessage");
+  const charCount = document.getElementById("charCount");
+  const submitBtn = document.getElementById("wishSubmit");
+  const status = document.getElementById("wishStatus");
+  const wishesEl = document.getElementById("wishes");
+  const LOCAL_KEY = "ken-bday-wishes";
+  let apiAvailable = true;
+
+  msgInput.addEventListener("input", () => {
+    charCount.textContent = msgInput.value.length + " / 280";
+  });
+
+  function localWishes() {
+    try { return JSON.parse(localStorage.getItem(LOCAL_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveLocal(entry) {
+    const list = localWishes();
+    list.unshift(entry);
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(list.slice(0, 100)));
+  }
+
+  function renderWish(entry, isLocal) {
+    const card = document.createElement("div");
+    card.className = "wish-card";
+
+    const text = document.createElement("p");
+    text.className = "wish-text";
+    text.textContent = entry.message; // textContent = XSS-safe
+
+    const name = document.createElement("p");
+    name.className = "wish-name";
+    name.textContent = "— " + entry.name;
+    if (isLocal) {
+      const tag = document.createElement("span");
+      tag.className = "local-tag";
+      tag.textContent = "  (saved on this device)";
+      name.appendChild(tag);
+    }
+
+    card.appendChild(text);
+    card.appendChild(name);
+    return card;
+  }
+
+  async function loadWishes() {
+    wishesEl.innerHTML = "";
+    try {
+      const r = await fetch("/api/messages");
+      if (!r.ok) throw new Error();
+      const data = await r.json();
+      const server = data.messages || [];
+      const local = localWishes().map((m) => ({ ...m, local: true }));
+      const all = [...local, ...server];
+      if (!all.length) return showEmpty();
+      all.forEach((m) => wishesEl.appendChild(renderWish(m, m.local)));
+    } catch {
+      apiAvailable = false;
+      const local = localWishes();
+      if (!local.length) return showEmpty();
+      local.forEach((m) => wishesEl.appendChild(renderWish(m, true)));
+    }
+  }
+
+  function showEmpty() {
+    const p = document.createElement("p");
+    p.className = "wishes-empty";
+    p.textContent = "No wishes yet — be the first!";
+    wishesEl.appendChild(p);
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const message = msgInput.value.trim();
+    if (!name || !message) return;
+
+    submitBtn.disabled = true;
+    status.classList.remove("hidden", "error");
+
+    const entry = { name, message, ts: Date.now() };
+    try {
+      const r = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(entry),
+      });
+      if (!r.ok) throw new Error();
+      status.textContent = "Your wish was sent!";
+      fire({ particleCount: 60, spread: 80, origin: { y: 0.8 }, scalar: 0.9 });
+      const empty = wishesEl.querySelector(".wishes-empty");
+      if (empty) empty.remove();
+      wishesEl.prepend(renderWish(entry, false));
+      setTimeout(loadWishes, 2000); // sync once the write propagates
+    } catch {
+      // API not connected — keep it on this device instead
+      saveLocal(entry);
+      status.textContent = "Saved! (syncs to everyone once the guestbook is connected)";
+      loadWishes();
+    }
+
+    msgInput.value = "";
+    charCount.textContent = "0 / 280";
+    submitBtn.disabled = false;
+    setTimeout(() => status.classList.add("hidden"), 5000);
+  });
+
+  loadWishes();
+})();

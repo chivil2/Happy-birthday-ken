@@ -1,0 +1,69 @@
+// Vercel serverless function — guestbook backed by Vercel KV (Upstash REST).
+// When you connect a KV database in the Vercel dashboard it automatically
+// sets KV_REST_API_URL and KV_REST_API_TOKEN — no code changes needed.
+
+const MAX_NAME = 40;
+const MAX_MESSAGE = 280;
+const KEEP_LATEST = 500;
+
+module.exports = async function handler(req, res) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") return res.status(204).end();
+
+  if (!url || !token) {
+    return res.status(503).json({ error: "Guestbook not connected yet." });
+  }
+
+  async function kv(command) {
+    const r = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(command),
+    });
+    const data = await r.json();
+    if (data.error) throw new Error(data.error);
+    return data.result;
+  }
+
+  try {
+    if (req.method === "GET") {
+      const raw = await kv(["LRANGE", "messages", "0", "-1"]);
+      const messages = (raw || [])
+        .map((s) => { try { return JSON.parse(s); } catch { return null; } })
+        .filter((m) => m && m.name && m.message)
+        .reverse(); // newest first
+      return res.status(200).json({ messages });
+    }
+
+    if (req.method === "POST") {
+      let body = req.body;
+      if (typeof body === "string") {
+        try { body = JSON.parse(body); } catch { body = {}; }
+      }
+      const name = String((body || {}).name || "").trim().slice(0, MAX_NAME);
+      const message = String((body || {}).message || "").trim().slice(0, MAX_MESSAGE);
+
+      if (!name || !message) {
+        return res.status(400).json({ error: "Name and message are required." });
+      }
+
+      const entry = JSON.stringify({ name, message, ts: Date.now() });
+      await kv(["RPUSH", "messages", entry]);
+      await kv(["LTRIM", "messages", String(-KEEP_LATEST), "-1"]);
+      return res.status(201).json({ ok: true });
+    }
+
+    return res.status(405).json({ error: "Method not allowed." });
+  } catch (e) {
+    return res.status(500).json({ error: "Something went wrong." });
+  }
+};

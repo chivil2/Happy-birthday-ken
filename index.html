@@ -94,6 +94,36 @@
       </div>
     </section>
 
+    <section class="guestbook-section">
+      <h3 class="section-title">Messages for Ken</h3>
+      <p class="section-sub">Leave him a birthday wish</p>
+
+      <form class="wish-form" id="wishForm">
+        <input
+          type="text"
+          id="wishName"
+          maxlength="40"
+          placeholder="Your name"
+          required
+          autocomplete="name"
+        />
+        <textarea
+          id="wishMessage"
+          maxlength="280"
+          rows="3"
+          placeholder="Write a birthday message..."
+          required
+        ></textarea>
+        <div class="wish-form-row">
+          <span class="char-count" id="charCount">0 / 280</span>
+          <button type="submit" class="wish-submit" id="wishSubmit">Send wish</button>
+        </div>
+        <p class="wish-status hidden" id="wishStatus"></p>
+      </form>
+
+      <div class="wishes" id="wishes"></div>
+    </section>
+
     <footer class="footer">
       <p>Made with <span class="heart">&hearts;</span> for Ken</p>
     </footer>

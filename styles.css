@@ -791,6 +791,147 @@ section {
   color: var(--gold);
 }
 
+/* ---- guestbook ---- */
+.wish-form {
+  max-width: 560px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.wish-form input,
+.wish-form textarea {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  color: var(--cream);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  resize: vertical;
+}
+
+.wish-form input:focus,
+.wish-form textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.15);
+}
+
+.wish-form input::placeholder,
+.wish-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.wish-form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.char-count {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.wish-submit {
+  padding: 0.75rem 2rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: linear-gradient(120deg, var(--gold), var(--pink));
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s, opacity 0.25s;
+}
+
+.wish-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(239, 71, 111, 0.4);
+}
+
+.wish-submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.wish-status {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--teal);
+  text-align: center;
+}
+
+.wish-status.error {
+  color: var(--pink);
+}
+
+.wishes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.wish-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.4rem 1.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.7s ease forwards;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.wish-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 45px rgba(155, 93, 229, 0.3);
+}
+
+.wish-card .wish-text {
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.9rem;
+  word-wrap: break-word;
+}
+
+.wish-card .wish-name {
+  font-family: "Pacifico", cursive;
+  font-size: 1.05rem;
+  background: linear-gradient(120deg, var(--gold), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.wish-card .wish-name .local-tag {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.4);
+}
+
+.wishes-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 2rem 0;
+}
+
 /* ---- footer ---- */
 .footer {
   position: relative;
