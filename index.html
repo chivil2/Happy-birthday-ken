@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Caveat:wght@500;700&family=Karla:wght@300;400;700&family=Special+Elite&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=Karla:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="styles.css" />
@@ -23,9 +23,42 @@
     <div class="string"></div><div class="cap"></div><div class="body"></div><div class="tassel"></div>
   </div>
 
+  <!-- corner vines -->
+  <svg class="vine vine-tl" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M0 20 Q 60 10, 90 50 T 150 90" fill="none" stroke="#2f4f38" stroke-width="4"/>
+    <g fill="#4a7050">
+      <ellipse cx="30" cy="14" rx="14" ry="7" transform="rotate(-30 30 14)"/>
+      <ellipse cx="60" cy="18" rx="14" ry="7" transform="rotate(10 60 18)"/>
+      <ellipse cx="85" cy="40" rx="14" ry="7" transform="rotate(45 85 40)"/>
+      <ellipse cx="105" cy="68" rx="14" ry="7" transform="rotate(60 105 68)"/>
+      <ellipse cx="132" cy="82" rx="14" ry="7" transform="rotate(30 132 82)"/>
+    </g>
+    <g fill="#5d8f5f">
+      <ellipse cx="45" cy="8" rx="10" ry="5" transform="rotate(-15 45 8)"/>
+      <ellipse cx="98" cy="52" rx="10" ry="5" transform="rotate(70 98 52)"/>
+      <ellipse cx="148" cy="92" rx="10" ry="5" transform="rotate(15 148 92)"/>
+    </g>
+  </svg>
+  <svg class="vine vine-br" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M200 180 Q 140 190, 110 150 T 50 110" fill="none" stroke="#2f4f38" stroke-width="4"/>
+    <g fill="#4a7050">
+      <ellipse cx="170" cy="186" rx="14" ry="7" transform="rotate(150 170 186)"/>
+      <ellipse cx="140" cy="182" rx="14" ry="7" transform="rotate(190 140 182)"/>
+      <ellipse cx="115" cy="160" rx="14" ry="7" transform="rotate(225 115 160)"/>
+      <ellipse cx="95" cy="132" rx="14" ry="7" transform="rotate(240 95 132)"/>
+      <ellipse cx="68" cy="118" rx="14" ry="7" transform="rotate(210 68 118)"/>
+    </g>
+    <g fill="#5d8f5f">
+      <ellipse cx="155" cy="192" rx="10" ry="5" transform="rotate(165 155 192)"/>
+      <ellipse cx="102" cy="148" rx="10" ry="5" transform="rotate(250 102 148)"/>
+      <ellipse cx="52" cy="108" rx="10" ry="5" transform="rotate(195 52 108)"/>
+    </g>
+  </svg>
+
   <!-- ============ INTRO: imperial scroll ============ -->
   <div id="intro" class="intro">
     <div class="intro-card" id="introCard">
+      <img class="maomao-peek" src="images/maomao.jpg" alt="Maomao" />
       <p class="intro-top">an imperial decree for</p>
       <p class="intro-to">KEN</p>
       <button class="scroll" id="scroll" aria-label="Unroll the birthday scroll">
@@ -69,6 +102,9 @@
     <!-- hero -->
     <header class="hero">
       <div class="hero-scrap">
+        <span class="sparkle s1"></span>
+        <span class="sparkle s2"></span>
+        <span class="sparkle s3"></span>
         <p class="hero-kicker">an imperial celebration</p>
         <h2 class="hero-title">
           <span class="w1">Happy</span>
@@ -76,16 +112,6 @@
         </h2>
         <p class="hero-name">Ken<span class="hero-bang">!</span></p>
         <p class="hero-script">the youngest of our group turns twenty</p>
-
-        <div class="hero-doodle d1">
-          <svg viewBox="0 0 60 60" width="54" height="54"><g fill="#f2b8c6" stroke="#8e2a38" stroke-width="2"><ellipse cx="30" cy="14" rx="8" ry="11"/><ellipse cx="45" cy="26" rx="8" ry="11" transform="rotate(72 45 26)"/><ellipse cx="39" cy="45" rx="8" ry="11" transform="rotate(144 39 45)"/><ellipse cx="21" cy="45" rx="8" ry="11" transform="rotate(216 21 45)"/><ellipse cx="15" cy="26" rx="8" ry="11" transform="rotate(288 15 26)"/><circle cx="30" cy="30" r="6" fill="#f6d47e"/></g></svg>
-        </div>
-        <div class="hero-doodle d2">
-          <svg viewBox="0 0 90 34" width="80" height="30"><path d="M4 22 Q 15 6, 28 18 T 50 18 Q 60 8, 72 16 Q 82 24, 88 14" fill="none" stroke="#8e2a38" stroke-width="3" stroke-linecap="round"/></svg>
-        </div>
-        <div class="hero-doodle d3">
-          <svg viewBox="0 0 46 46" width="38" height="38"><path d="M23 3 v10 M23 33 v10 M3 23 h10 M33 23 h10" stroke="#d4af5f" stroke-width="3" stroke-linecap="round"/><circle cx="23" cy="23" r="7" fill="none" stroke="#d4af5f" stroke-width="3"/></svg>
-        </div>
       </div>
 
       <figure class="hero-portrait portrait tilt-r">
@@ -94,11 +120,17 @@
         <figcaption>the birthday boy</figcaption>
       </figure>
 
+      <img class="maomao-corner" src="images/maomao.jpg" alt="Maomao approves" />
+
       <div class="scroll-hint"><span>scroll down</span></div>
     </header>
 
+    <div class="divider" aria-hidden="true"><span></span></div>
+
     <!-- letter -->
     <section class="letter-section">
+      <h3 class="sec-head">The Letter</h3>
+      <p class="sec-sub">(a note, sealed for you)</p>
       <div class="paper-card">
         <span class="tape tape-l"></span>
         <span class="tape tape-r"></span>
@@ -119,10 +151,12 @@
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"><span></span></div>
+
     <!-- apothecary files -->
     <section class="files-section">
-      <h3 class="section-title">The Apothecary Files</h3>
-      <p class="section-script">official records, verified by taste-test</p>
+      <h3 class="sec-head">The Apothecary Files</h3>
+      <p class="sec-sub">(official records, verified by taste-test)</p>
       <div class="files-grid">
         <div class="file-card fc1"><p class="file-num">20</p><p class="file-label">years young</p></div>
         <div class="file-card fc2"><p class="file-num">0%</p><p class="file-label">poison detected</p></div>
@@ -132,17 +166,21 @@
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"><span></span></div>
+
     <!-- gallery -->
     <section class="gallery-section">
-      <h3 class="section-title">Portraits of the Birthday Boy</h3>
-      <p class="section-script">exhibits a, b &amp; c — clearly the cutest in the court</p>
+      <h3 class="sec-head">Portraits of the Birthday Boy</h3>
+      <p class="sec-sub">(exhibits a, b &amp; c — clearly the cutest in the court)</p>
       <div class="gallery" id="gallery"></div>
     </section>
 
+    <div class="divider" aria-hidden="true"><span></span></div>
+
     <!-- cake -->
     <section class="cake-section">
-      <h3 class="section-title">Make a Wish</h3>
-      <p class="section-script">taste-tested thrice — completely poison-free</p>
+      <h3 class="sec-head">Make a Wish</h3>
+      <p class="sec-sub">(taste-tested thrice — completely poison-free)</p>
       <div class="cake" id="cake">
         <div class="candles" id="candles"></div>
         <div class="cake-layer top"></div>
@@ -153,17 +191,18 @@
       <p class="wish-msg hidden" id="wishMsg">wish sealed &amp; sent to the heavens</p>
     </section>
 
+    <div class="divider" aria-hidden="true"><span></span></div>
+
     <!-- wishes -->
     <section class="wishes-section">
-      <h3 class="section-title">Tributes for the Youngest</h3>
-      <p class="section-script">left by the people who adore you</p>
+      <h3 class="sec-head">Tributes for the Youngest</h3>
+      <p class="sec-sub">(left by the people who adore you)</p>
       <div class="wishes" id="wishes"></div>
     </section>
 
     <footer class="footer">
       <p class="footer-big">Long Live the Youngest</p>
       <p class="footer-note">made with <span class="heart">&hearts;</span> by the ones who love you most</p>
-      <a class="footer-link" href="/wish">court members — leave a tribute for ken</a>
     </footer>
   </main>
 

@@ -4,7 +4,7 @@ const fire = (opts) => {
   if (typeof window.confetti === "function") {
     window.confetti(
       Object.assign(
-        { colors: ["#f0a5c0", "#f6d47e", "#a9c6de", "#5b2337", "#fdf6e7"] },
+        { colors: ["#e59bb0", "#b98a2f", "#a63a3a", "#5d8f5f", "#f3ebd6"] },
         opts
       )
     );

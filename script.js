@@ -9,7 +9,7 @@ const PHOTOS = [
   { src: "images/photo3.jpg", caption: "exploring the outer court" },
 ];
 
-const CONFETTI_COLORS = ["#f2b8c6", "#d4af5f", "#b23a48", "#4f9e8a", "#f7efdc", "#8e2a38"];
+const CONFETTI_COLORS = ["#e59bb0", "#b98a2f", "#a63a3a", "#5d8f5f", "#f3ebd6", "#4a7050"];
 const LOCAL_KEY = "ken-bday-wishes";
 
 const hasConfetti = typeof window.confetti === "function";
@@ -91,9 +91,7 @@ function startPetals() {
     p.style.left = Math.random() * 100 + "%";
     p.style.setProperty("--dur", 9 + Math.random() * 9 + "s");
     p.style.setProperty("--delay", Math.random() * 14 + "s");
-    if (Math.random() < 0.25) {
-      p.style.background = "radial-gradient(circle at 30% 30%, #ecd9a8, #d4af5f)";
-    }
+    if (Math.random() < 0.4) p.classList.add("leaf");
     field.appendChild(p);
   }
 }
