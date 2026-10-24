@@ -1,6 +1,6 @@
-// Vercel serverless function — guestbook backed by Vercel KV (Upstash REST).
-// When you connect a KV database in the Vercel dashboard it automatically
-// sets KV_REST_API_URL and KV_REST_API_TOKEN — no code changes needed.
+// Vercel serverless function — guestbook backed by a Redis (Upstash REST) store.
+// Connecting Vercel KV / Upstash in the dashboard sets the REST env vars
+// automatically — no code changes needed. Both naming schemes supported.
 
 const MAX_NAME = 40;
 const MAX_MESSAGE = 280;
@@ -9,8 +9,10 @@ const KEEP_LATEST = 300;
 const ALLOWED_PHOTO = /^data:image\/(jpeg|png|webp);base64,/;
 
 module.exports = async function handler(req, res) {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  const url =
+    process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token =
+    process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
