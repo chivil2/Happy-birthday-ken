@@ -988,6 +988,7 @@ section {
     box-shadow 0.3s ease;
 }
 
+.gallery .portrait.visible { opacity: 1; }
 .gallery .portrait.visible.tilt-l { transform: rotate(-4deg); }
 .gallery .portrait.visible.tilt-r { transform: rotate(4deg); }
 .gallery .portrait.visible.tilt-c { transform: rotate(0.5deg); }
