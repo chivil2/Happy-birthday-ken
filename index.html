@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Ken!</title>
+  <meta name="description" content="A birthday surprise for Ken" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <!-- ============ OPENING OVERLAY ============ -->
+  <div id="intro" class="intro">
+    <div class="intro-stars" id="introStars"></div>
+
+    <div class="gift-stage" id="giftStage">
+      <p class="intro-hint">A surprise awaits you...</p>
+      <button class="gift" id="gift" aria-label="Open your gift">
+        <span class="gift-lid"></span>
+        <span class="gift-box"></span>
+        <span class="gift-ribbon-v"></span>
+        <span class="gift-ribbon-h"></span>
+        <span class="gift-bow">
+          <span class="bow-loop left"></span>
+          <span class="bow-loop right"></span>
+          <span class="bow-knot"></span>
+        </span>
+        <span class="gift-glow"></span>
+      </button>
+      <p class="tap-label">Tap the gift to open</p>
+    </div>
+
+    <div class="reveal hidden" id="reveal">
+      <div class="hb-line" id="hbLine"></div>
+      <h1 class="name" id="nameText">Ken</h1>
+      <div class="age-line" id="ageLine">Wishing you the best day ever</div>
+      <button class="enter-btn" id="enterBtn">Enter the celebration</button>
+    </div>
+  </div>
+
+  <!-- ============ MAIN PAGE ============ -->
+  <main id="main" class="main hidden">
+    <div class="balloon-field" id="balloonField"></div>
+
+    <button class="music-toggle" id="musicToggle" aria-label="Toggle music" title="Play birthday tune">
+      <span id="musicIcon">&#9835;</span>
+    </button>
+
+    <header class="hero">
+      <h2 class="hero-title">
+        <span class="word w1">Happy</span>
+        <span class="word w2">Birthday</span>
+        <span class="word w3">Ken!</span>
+      </h2>
+      <p class="hero-sub">Today is all about you</p>
+      <div class="scroll-hint"><span></span></div>
+    </header>
+
+    <section class="cake-section">
+      <h3 class="section-title">Make a wish</h3>
+      <p class="section-sub">Click the flames to blow out the candles</p>
+      <div class="cake" id="cake">
+        <div class="candles" id="candles"></div>
+        <div class="cake-layer top"></div>
+        <div class="cake-layer mid"></div>
+        <div class="cake-layer bottom"></div>
+        <div class="cake-plate"></div>
+      </div>
+      <p class="wish-msg hidden" id="wishMsg">Your wish has been sent to the stars</p>
+    </section>
+
+    <section class="gallery-section">
+      <h3 class="section-title">Memories</h3>
+      <p class="section-sub">Moments worth celebrating</p>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <section class="message-section">
+      <div class="message-card">
+        <h3 class="section-title">A note for you</h3>
+        <p class="message-text">
+          Another year older, another year bolder. May this year bring you
+          everything you've been working toward and a few wonderful surprises
+          along the way. Eat too much cake, laugh too loud, and enjoy every
+          second of your day.
+        </p>
+        <p class="message-sign">— with love</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Made with <span class="heart">&hearts;</span> for Ken</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
